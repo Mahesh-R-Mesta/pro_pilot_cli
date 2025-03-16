@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:pro_pilot/ai/base_ai_service.dart';
 import 'package:pro_pilot/env_loader.dart';
 import 'package:pro_pilot/model.dart';
-import 'package:pro_pilot/promp.dart';
-// import 'package:flutter_dotenv/flutter_dotenv.dart';
-// import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:pro_pilot/prompt.dart';
 import 'dart:io' as io;
 
 import 'package:google_generative_ai/google_generative_ai.dart';

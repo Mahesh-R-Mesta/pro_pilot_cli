@@ -11,20 +11,10 @@ import 'dart:io' as io;
 import 'package:pro_pilot/env_loader.dart';
 
 void main(List<String> arguments) async {
-  // await io.Process.run("clear", []);
-  await AppEnv.load();
-  io.stdout.write(ColorfulText.paint("----- AI project setup -----\n", ColorfulText.yellow));
-
   final args = ArgParser();
   args.parse(arguments);
-
-  if (arguments.isEmpty) {
-    io.stdout.write("""Help
-      flutter  - create flutter project
-      react  - create react project\n""");
-    io.stdout.write(ColorfulText.paint("No command found\n", ColorfulText.red));
-    exit(1);
-  }
+  await AppEnv.load();
+  io.stdout.write(ColorfulText.paint("----- AI boilerplate project setup -----\n", ColorfulText.yellow));
 
   Builder builder;
 
@@ -38,9 +28,11 @@ void main(List<String> arguments) async {
       builder = ReactBuilder(aiService);
       break;
     default:
-      io.stdout.write("""Help
-      flutter  - create flutter project
-      react  - create react project""");
+      io.stdout.write("""
+    No command found
+    Help
+      flutter - create flutter project
+      react - create react project""");
       exit(1);
   }
 
