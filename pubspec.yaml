@@ -1,0 +1,25 @@
+name: pro_pilot
+description: A sample command-line application.
+version: 1.0.0
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ^3.6.0
+
+# Add regular dependencies here.
+dependencies:
+  args: ^2.6.0
+  dart_openai: ^5.1.0
+  colorful_text: ^1.0.0
+  path: ^1.9.1
+  flutter_gemini: ^3.0.0
+  google_generative_ai: ^0.4.6
+  # flutter_dotenv: ^5.2.1
+  # path: ^1.8.0
+
+dev_dependencies:
+  lints: ^5.0.0
+  test: ^1.24.0
+
+# assets:
+#   - .env
