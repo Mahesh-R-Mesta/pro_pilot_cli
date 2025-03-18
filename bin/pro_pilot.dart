@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'package:pro_pilot/ai/base_ai_service.dart';
 import 'package:pro_pilot/ai/gemini_service.dart';
-import 'package:pro_pilot/builder/builder.dart';
+import 'package:pro_pilot/builder/boilerplate_build.dart';
+import 'package:pro_pilot/builder/base_builder.dart';
 import 'package:pro_pilot/builder/fl_build.dart';
 import 'package:pro_pilot/builder/react_build.dart';
 import 'package:args/args.dart';
 import 'package:colorful_text/colorful_text.dart';
 import 'dart:io' as io;
-
 import 'package:pro_pilot/env_loader.dart';
 
 void main(List<String> arguments) async {
@@ -26,6 +26,9 @@ void main(List<String> arguments) async {
       break;
     case 'react':
       builder = ReactBuilder(aiService);
+      break;
+    case 'boilerplate':
+      builder = BoilerPlateBuilder(aiService);
       break;
     default:
       io.stdout.write("""

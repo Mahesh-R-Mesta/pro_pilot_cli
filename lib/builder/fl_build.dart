@@ -1,6 +1,6 @@
 import 'package:pro_pilot/ai/base_ai_service.dart';
 import 'package:pro_pilot/folder_setup_tool.dart';
-import 'package:pro_pilot/builder/builder.dart';
+import 'package:pro_pilot/builder/base_builder.dart';
 import 'dart:io' as io;
 
 import 'package:pro_pilot/prompt.dart';
@@ -39,6 +39,8 @@ class FlBuilder extends Builder {
       io.stderr.write("☠️ error $error");
       io.exit(1);
     }
+
+    await aiService.loadHistory(projectName);
 
     String? description = getDescription();
 

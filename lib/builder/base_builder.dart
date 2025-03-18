@@ -1,5 +1,4 @@
 import 'dart:io' as io;
-
 import 'package:colorful_text/colorful_text.dart';
 
 abstract class Builder {

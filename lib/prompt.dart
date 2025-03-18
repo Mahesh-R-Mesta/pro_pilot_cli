@@ -12,7 +12,7 @@ mixin Prompt {
 - State management used: $stateManagement
   """;
 
-  static String systemInstruction =
+  static const String projectSetupInstruction =
       """You are an expert in software development and project scaffolding. Based on the given project details, generate a structured boilerplate code setup with a folder structure and essential initial files
 
 ## **Expected Output**
@@ -51,6 +51,32 @@ response should look like this.
   ]
 }```
 """;
+
+  static const String boilerplateSetupInstruction =
+      """You are an expert in software development and project scaffolding. Based on the given project details, generate a structured boilerplate code setup in user specified folder through analyzing project structure and location
+  response should look like this.
+```json
+{
+  "files": [
+    {
+      "path": "relative\path\to\file",
+      "filename": "\filename.ext",
+      "code": "initial sample implementation"
+    }
+  ],
+  "packages": [
+    "package1",
+    "package2"
+  ]
+}```
+  """;
+
+  static String projectPrompt({required String path, required String projectStructure, required String userPrompt}) {
+    return """Path to the project folder is $path
+    **Project structure**
+    $projectStructure
+    task to do: $userPrompt""";
+  }
 
 //   """You are a expert flutter developer, and your main job is to create proper folder strucure with boilerplate
 //  code for the project based on give information
