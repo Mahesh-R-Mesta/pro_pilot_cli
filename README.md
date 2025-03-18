@@ -15,25 +15,31 @@
    git clone https://github.com/your-username/pro_pilot.git
    cd pro_pilot
 
-2. Build the CLI tool
-```sh
-  dart compile exe bin/pro_pilot.dart -o pro_pilot
-```
+2. Build the CLI tool (make sure you have dart installed)
+   ```sh
+     dart compile exe bin/pro_pilot.dart -o pro_pilot # For Linux
+     dart compile exe bin/pro_pilot.dart # For Windows
+   ```
+   
 3. Move the executable to a directory in your system’s
+   ```sh
+   mv pro_pilot /usr/local/bin  # For Linux/macOS
+   move pro_pilot.exe C:\Windows\System32  # For Windows (or set environment path)
+   ```
 
-```sh
-mv pro_pilot /usr/local/bin  # For Linux/macOS
-move pro_pilot.exe C:\Windows\System32  # For Windows
-```
-## Generate a Flutter project
-```sh
-.\pro_pilot flutter
-```
-
-## Generate a React project
-```sh
-.\pro_pilot react
-```
+## Usage 
+   1. Generate a Flutter project
+   ```sh
+   .\pro_pilot flutter
+   ```
+  2. Generate a React project
+   ```sh
+   .\pro_pilot react
+   ```
+  3. Generating boilerplate code for existing project
+   ```sh
+   .\pro_pilot boilerplate
+   ```
 
 ## 🛠️ Requirements
 Dart SDK installed<br/>
