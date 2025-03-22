@@ -2,11 +2,9 @@ import 'dart:convert';
 
 import 'package:hive/hive.dart';
 import 'package:pro_pilot/ai/base_ai_service.dart';
-import 'package:pro_pilot/folder_setup_tool.dart';
 import 'package:pro_pilot/model.dart';
 import 'package:pro_pilot/prompt.dart';
 import 'dart:io' as io;
-import 'package:path/path.dart' as path;
 
 import 'package:google_generative_ai/google_generative_ai.dart';
 
@@ -32,35 +30,6 @@ class GeminiService extends AIService {
       return apiKey;
     }
     return apiKey;
-  }
-
-  @override
-  Future<void> loadHistory(String projectName) async {
-    final directoryPath = path.join(FolderSetupTool.getProjectPath(projectName), 'gemini_history.json');
-    print(directoryPath);
-    file = io.File(directoryPath);
-    if (!file!.existsSync()) {
-      await file!.create(recursive: true);
-    }
-
-    try {
-      final data = await file!.readAsString();
-      if (data.isNotEmpty) {
-        final contents = json.decode(data) as List<Map<String, dynamic>>;
-        try {
-          history.addAll(contents.map((map) {
-            if (map['role'] == 'user') {
-              return Content.multi((map['parts'] as List<Map>).map((m) => TextPart(m['text'])).toList());
-            }
-            return Content.model((map['parts'] as List<Map>).map((m) => TextPart(m['text'])).toList());
-          }).toList());
-        } catch (error) {
-          io.stderr.write(error.toString());
-        }
-      }
-    } catch (error) {
-      io.stderr.write(error.toString());
-    }
   }
 
   @override

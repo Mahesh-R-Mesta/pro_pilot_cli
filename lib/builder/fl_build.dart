@@ -14,7 +14,7 @@ class FlBuilder extends Builder {
   @override
   build() async {
     String? projectName = getProjectName();
-
+    // build project
     final result = await io.Process.run(executable, [exitType, 'flutter', 'create', projectName]);
     io.stdout.write(ColorfulText.paint(result.stdout, ColorfulText.green));
     if (result.exitCode != 0) {
@@ -22,7 +22,7 @@ class FlBuilder extends Builder {
     } else {
       io.stdout.write(ColorfulText.paint("\n👏 Project creation done ", ColorfulText.green));
     }
-
+    // get state-management
     var packages = ['provider', 'flutter_bloc bloc', 'get'];
     var options = ['Provider', 'Bloc', 'GetX'];
     io.stdout.write(ColorfulText.paint("\n1. Provider\n2. Bloc\n3. GetX ", ColorfulText.yellow));
@@ -33,14 +33,12 @@ class FlBuilder extends Builder {
       var path = FolderSetupTool.getProjectPath(projectName);
 
       final out = await io.Process.run(executable, [exitType, 'dart pub add ${packages[index - 1]}'], workingDirectory: "$path/");
-      //'dart', 'pub', 'add', packages[index]
+
       print(out.stdout);
     } catch (error) {
       io.stderr.write("☠️ error $error");
       io.exit(1);
     }
-
-    await aiService.loadHistory(projectName);
 
     String? description = getDescription();
 

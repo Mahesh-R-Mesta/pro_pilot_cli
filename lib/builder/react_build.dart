@@ -22,7 +22,6 @@ class ReactBuilder extends Builder {
       io.stdout.write(ColorfulText.paint("\n👏 Project creation done\n ", ColorfulText.green));
     }
 
-    await aiService.loadHistory(projectName);
     String? description = getDescription();
 
     final response = await aiService.getCompletions(Prompt.template(
