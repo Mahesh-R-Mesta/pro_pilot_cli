@@ -14,6 +14,9 @@ dependencies:
   path: ^1.9.1
   flutter_gemini: ^3.0.0
   google_generative_ai: ^0.4.6
+  amplify_secure_storage_dart: ^0.5.4
+  hive: ^2.2.3
+  google_sign_in: ^6.3.0
   # flutter_dotenv: ^5.2.1
   # path: ^1.8.0
 

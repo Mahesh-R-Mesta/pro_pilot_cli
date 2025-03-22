@@ -53,7 +53,7 @@ response should look like this.
 """;
 
   static const String boilerplateSetupInstruction =
-      """You are an expert in software development and project scaffolding. Based on the given project details, generate a structured boilerplate code setup in user specified folder through analyzing project structure and location
+      """You are an expert in software development and project scaffolding. Based on the given project details, generate a structured boilerplate code setup in user specified folder through analyzing project structure and location.
   response should look like this.
 ```json
 {
@@ -71,72 +71,12 @@ response should look like this.
 }```
   """;
 
-  static String projectPrompt({required String path, required String projectStructure, required String userPrompt}) {
-    return """Path to the project folder is $path
-    **Project structure**
-    $projectStructure
-    task to do: $userPrompt""";
-  }
+  // static String projectPrompt({required String path, required String projectStructure, required String userPrompt}) {
+  //   return """Path to the project folder is $path
 
-//   """You are a expert flutter developer, and your main job is to create proper folder strucure with boilerplate
-//  code for the project based on give information
-// response should look like this.
-// ```json
-// {
-//   "files": [
-//     {
-//       "path": "relative\path\to\file",
-//       "filename": "\filename.ext",
-//       "code": "initial sample implementation"
-//     }
-//   ],
-//   "packages": [
-//     "package1",
-//     "package2"
-//   ]
-// }```
-// """;
+  //   **Project structure**
+  //   $projectStructure
 
-//   static String template2({
-//     required String project,
-//     required String projectName,
-//     required String stateManagement,
-//     required String description,
-//   }) =>
-//       """Given the following project details:
-
-// - **Project Type**: $project
-// - **Project Name**: $projectName
-// - **Project Description**: $description
-// - **State management**: $stateManagement
-
-// Generate a JSON response that outlines the project structure, including:
-
-// 1. **A list of files** with their **paths, filenames, and initial sample implementation**.
-// 2. **A structured folder hierarchy** including essential directories (e.g. ${project == 'flutter' ? 'widgets' : 'components'},helpers, utils, services, presentation).
-// 3. **Helper classes** for common functionality such as API calls, local storage, state management and utilities.
-// 4. **A list of required packages** based on the project type.
-
-// Follow best practices, structuring lib/ with:
-// core/ (utilities, theme, config)
-// data/ (models, repositories)
-// presentation/ (UI screens, widgets)
-// state/ (state management setup)
-// helpers/ (common utility functions)
-
-// The JSON response should strictly follow this format:
-// ```json
-// {
-//   "files": [
-//     {
-//       "path": "relative\path\to\file",
-//       "filename": "\filename.ext",
-//       "code": "initial sample implementation"
-//     }
-//   ],
-//   "packages": [
-//     "package1",
-//     "package2"
-//   ]
-// }  """;
+  //   Task to do: $userPrompt""";
+  // }
 }

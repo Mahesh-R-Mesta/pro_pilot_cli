@@ -23,6 +23,18 @@ mixin FolderSetupTool {
     }
   }
 
+  static String projectNormalStructure() {
+    List<String> paths = [];
+    final path = io.Directory.current.path;
+    final fileEntities = io.Directory(path).listSync(recursive: true);
+    final ignored = ['.dart_tool', '.vscode', '.git'];
+    for (final entity in fileEntities) {
+      final path = entity.path;
+      if (!ignored.contains(path)) paths.add(path);
+    }
+    return paths.join('\n');
+  }
+
   static projectStructure() {
     final subpath = "├── ";
     final endPath = "└── ";

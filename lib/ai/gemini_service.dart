@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:hive/hive.dart';
 import 'package:pro_pilot/ai/base_ai_service.dart';
-import 'package:pro_pilot/env_loader.dart';
 import 'package:pro_pilot/folder_setup_tool.dart';
 import 'package:pro_pilot/model.dart';
 import 'package:pro_pilot/prompt.dart';
@@ -11,6 +11,8 @@ import 'package:path/path.dart' as path;
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 class GeminiService extends AIService {
+  final key = 'GEMINI_API_KEY';
+  String? apiKey;
   String? clean(String? response) {
     return response?.replaceAll("```json", "").replaceAll("```", "");
   }
@@ -18,6 +20,19 @@ class GeminiService extends AIService {
   io.File? file;
 
   List<Content> history = [];
+
+  @override
+  Future<String?> loadApiKey() async {
+    final box = await Hive.openBox('credential');
+    apiKey = box.get(key);
+    if (apiKey == null) {
+      io.stdout.write("Enter your gemini api key (Stored securely on system) :");
+      final apiKey = io.stdin.readLineSync();
+      if (apiKey != null) await box.put(key, apiKey);
+      return apiKey;
+    }
+    return apiKey;
+  }
 
   @override
   Future<void> loadHistory(String projectName) async {
@@ -51,9 +66,10 @@ class GeminiService extends AIService {
   @override
   Future<AIResponse?> getCompletions(String prompt, {String instruction = Prompt.projectSetupInstruction}) async {
     try {
+      if (apiKey == null) await loadApiKey();
       final model = GenerativeModel(
         model: 'gemini-2.0-flash',
-        apiKey: AppEnv.env['GEMINI_API_KEY']!, //dotenv.env['GEMINI_API_KEY']!,
+        apiKey: apiKey!, //dotenv.env['GEMINI_API_KEY']!,
         generationConfig: GenerationConfig(
           temperature: 1.5,
           topK: 40,
@@ -61,7 +77,7 @@ class GeminiService extends AIService {
           maxOutputTokens: 8192,
           responseMimeType: 'application/json',
         ),
-        systemInstruction: Content.system(Prompt.projectSetupInstruction),
+        systemInstruction: Content.system(instruction),
       );
 
       final chat = model.startChat(history: []);
