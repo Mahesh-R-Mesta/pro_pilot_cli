@@ -16,7 +16,7 @@ abstract class Builder {
     String? description;
     do {
       io.stdout.write(ColorfulText.paint(
-        """(AI) Write about your project!
+        """AI: Write about your project!
         1) About features you will be using (Optional)
         2) About Boilerplate code which you need (Optional)
         3) About Specify folder structure which you want (Optional):\n""",
