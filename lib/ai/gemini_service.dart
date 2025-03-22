@@ -58,8 +58,8 @@ class GeminiService extends AIService {
       final data = response.text;
       if (data != null) {
         final map = json.decode(clean(data)!) as Map<String, dynamic>;
-        io.stdout.write(ColorfulText.paint(map["files"], ColorfulText.green));
-        io.stdout.write(ColorfulText.paint(map['packages'], ColorfulText.white));
+        io.stdout.write(ColorfulText.paint(map["files"].toString(), ColorfulText.green));
+        io.stdout.write(ColorfulText.paint(map['packages'].toString(), ColorfulText.white));
         final values = map["files"] as List<dynamic>;
         final packages = map['packages'] as List<dynamic>;
         List<Snippet> snippets = [];
