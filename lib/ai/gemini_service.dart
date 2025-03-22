@@ -36,7 +36,7 @@ class GeminiService extends AIService {
   @override
   Future<AIResponse?> getCompletions(String prompt, {String instruction = Prompt.projectSetupInstruction}) async {
     try {
-      io.stdout.write(prompt);
+      io.stdout.write('$prompt\n');
       if (apiKey == null) await loadApiKey();
       final model = GenerativeModel(
         model: 'gemini-2.0-flash',

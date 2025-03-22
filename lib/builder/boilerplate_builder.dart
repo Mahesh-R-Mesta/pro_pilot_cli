@@ -56,6 +56,8 @@ Please make sure you are running command inside project folder""", ColorfulText.
     if (response?.packages.isNotEmpty == true) {
       if (projectType == 'flutter') {
         final pkg = response!.packages;
+        if (pkg.contains("flutter")) pkg.remove("flutter");
+        if (pkg.contains("flutter_test")) pkg.remove("flutter_test");
         final out = await io.Process.run(executable, [exitType, 'dart pub add ', ...pkg]);
         io.stdout.write(out.stdout);
       } else {

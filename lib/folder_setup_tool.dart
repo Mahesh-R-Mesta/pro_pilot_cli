@@ -5,6 +5,7 @@ import 'package:colorful_text/colorful_text.dart';
 import 'package:path/path.dart' as p;
 
 mixin FolderSetupTool {
+  static final ignored = ['.dart_tool', '.vscode', '.git', 'node_modules', 'android', 'build', 'macos', 'ios', 'linux', 'web', 'windows', 'assets'];
   static String getProjectPath(String project) => p.join(io.Directory.current.path, project);
 
   static createDirectories({String? projectName, required List<Snippet> snippets}) async {
@@ -32,7 +33,7 @@ mixin FolderSetupTool {
     Set<String> paths = {};
     final path = io.Directory.current.path;
     final fileEntities = io.Directory(path).listSync(recursive: true);
-    final ignored = ['.dart_tool', '.vscode', '.git', 'node_modules'];
+
     for (final entity in fileEntities) {
       final path = entity.path;
       if (!ignored.any((folder) => path.contains(folder))) {
@@ -51,8 +52,6 @@ mixin FolderSetupTool {
     final fileEntities = io.Directory(path).listSync(recursive: true);
     final rootPath = (path.split('\\')..removeLast()).join('\\');
     Map<String, dynamic> folderStruct = {};
-
-    final ignored = ['.dart_tool', '.vscode', '.git', 'node_modules'];
 
     void stackMap(Map<String, dynamic> map, List<String> value, int index) {
       if (index == value.length || ignored.contains(value[index])) {
