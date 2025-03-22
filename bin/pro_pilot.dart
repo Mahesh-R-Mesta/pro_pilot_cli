@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:pro_pilot/ai/base_ai_service.dart';
 import 'package:pro_pilot/ai/gemini_service.dart';
 import 'package:pro_pilot/builder/base_builder.dart';
+import 'package:pro_pilot/builder/boilerplate_builder.dart';
 import 'package:pro_pilot/builder/fl_build.dart';
 import 'package:pro_pilot/builder/react_build.dart';
 import 'package:colorful_text/colorful_text.dart';
@@ -16,7 +17,8 @@ void main(List<String> arguments) async {
 
     Help!
     flutter - create flutter project
-    react - create react project""", ColorfulText.yellow));
+    react - create react project
+    boilerplate - generate boilerplate inside project""", ColorfulText.yellow));
   }
 
   io.stdout.write(ColorfulText.paint("----- AI boilerplate project setup -----\n", ColorfulText.yellow));
@@ -34,13 +36,17 @@ void main(List<String> arguments) async {
     case 'react':
       builder = ReactBuilder(aiService);
       break;
+    case 'boilerplate':
+      builder = BoilerPlateGenerator(aiService);
+      break;
     default:
       io.stderr.write(ColorfulText.paint("""
       !Invalid command
 
       Help
       flutter - create flutter project
-      react - create react project""", ColorfulText.red));
+      react - create react project
+      boilerplate - generate boilerplate inside project""", ColorfulText.red));
       exit(1);
   }
 

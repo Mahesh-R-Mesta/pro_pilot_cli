@@ -34,7 +34,7 @@ class FlBuilder extends Builder {
 
       final out = await io.Process.run(executable, [exitType, 'dart pub add ${packages[index - 1]}'], workingDirectory: "$path/");
 
-      print(out.stdout);
+      io.stdout.write(out.stdout);
     } catch (error) {
       io.stderr.write("☠️ error $error");
       io.exit(1);
@@ -48,7 +48,6 @@ class FlBuilder extends Builder {
       stateManagement: options[index - 1],
       description: description,
     ));
-    print(response);
     await FolderSetupTool.createDirectories(projectName: projectName, snippets: response?.snippets ?? []);
     var path = FolderSetupTool.getProjectPath(projectName);
     if (response?.packages.isNotEmpty == true) {

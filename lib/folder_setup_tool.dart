@@ -2,18 +2,23 @@ import 'dart:io' as io;
 
 import 'package:pro_pilot/model.dart';
 import 'package:colorful_text/colorful_text.dart';
-import 'package:path/path.dart' as path;
+import 'package:path/path.dart' as p;
 
 mixin FolderSetupTool {
-  static String getProjectPath(String project) => path.join(io.Directory.current.path, project);
+  static String getProjectPath(String project) => p.join(io.Directory.current.path, project);
 
-  static createDirectories({required String projectName, required List<Snippet> snippets}) async {
+  static createDirectories({String? projectName, required List<Snippet> snippets}) async {
     final currentDir = io.Directory.current;
     print(currentDir.path);
     for (final snippet in snippets) {
       try {
-        final doPathContainFileName = snippet.path.split('.').last == 'dart';
-        final file = io.File(path.join(currentDir.path, projectName, snippet.path, !doPathContainFileName ? snippet.filename : ''));
+        String path;
+        if (projectName != null) {
+          path = p.join(currentDir.path, projectName, snippet.path, snippet.filename);
+        } else {
+          path = p.join(currentDir.path, snippet.path, snippet.filename);
+        }
+        final file = io.File(path);
         if (!file.existsSync()) file.createSync(recursive: true);
         io.stdout.write("${ColorfulText.paint("created $file", ColorfulText.cyan)}\n");
         if (snippet.code != null) await file.writeAsString(snippet.code!);
@@ -23,14 +28,16 @@ mixin FolderSetupTool {
     }
   }
 
-  static String projectNormalStructure() {
-    List<String> paths = [];
+  static String retrieveProjectDirectories() {
+    Set<String> paths = {};
     final path = io.Directory.current.path;
     final fileEntities = io.Directory(path).listSync(recursive: true);
-    final ignored = ['.dart_tool', '.vscode', '.git'];
+    final ignored = ['.dart_tool', '.vscode', '.git', 'node_modules'];
     for (final entity in fileEntities) {
       final path = entity.path;
-      if (!ignored.contains(path)) paths.add(path);
+      if (!ignored.any((folder) => path.contains(folder))) {
+        paths.add(p.dirname(path));
+      }
     }
     return paths.join('\n');
   }
@@ -45,7 +52,7 @@ mixin FolderSetupTool {
     final rootPath = (path.split('\\')..removeLast()).join('\\');
     Map<String, dynamic> folderStruct = {};
 
-    final ignored = ['.dart_tool', '.vscode', '.git'];
+    final ignored = ['.dart_tool', '.vscode', '.git', 'node_modules'];
 
     void stackMap(Map<String, dynamic> map, List<String> value, int index) {
       if (index == value.length || ignored.contains(value[index])) {
@@ -79,7 +86,6 @@ mixin FolderSetupTool {
       stackMap(folderStruct, refinedPath.split('\\').toList(), 0);
     }
     final list = createMap(folderStruct, [], 0);
-    print(list.join('\n'));
     return list.join('\n');
   }
 }

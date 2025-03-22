@@ -53,30 +53,35 @@ response should look like this.
 """;
 
   static const String boilerplateSetupInstruction =
-      """You are an expert in software development and project scaffolding. Based on the given project details, generate a structured boilerplate code setup in user specified folder through analyzing project structure and location.
-  response should look like this.
-```json
-{
-  "files": [
-    {
-      "path": "relative\path\to\file",
-      "filename": "\filename.ext",
-      "code": "initial sample implementation"
-    }
-  ],
-  "packages": [
-    "package1",
-    "package2"
-  ]
-}```
-  """;
+      """You are an expert software developer and your job is to analyze the given project details and wirte boilerplate code in speicified folder location based on given prompt
 
-  // static String projectPrompt({required String path, required String projectStructure, required String userPrompt}) {
-  //   return """Path to the project folder is $path
+Response should look like this.
+  ```json
+  {
+    "files": [
+      {
+        "path": "relative\path\to\file",
+        "filename": "\filename.ext",
+        "code": "initial sample implementation"
+      }
+    ],
+    "packages": [
+      "package1",
+      "package2"
+    ]
+  }```""";
 
-  //   **Project structure**
-  //   $projectStructure
+  static String template2({
+    required String? projectType,
+    required String? projectName,
+    required String folders,
+    required String? prompt,
+  }) {
+    return """Project type : $projectType
+Project name: $projectName
+Project folders:
+$folders
 
-  //   Task to do: $userPrompt""";
-  // }
+$prompt""";
+  }
 }

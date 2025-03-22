@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:colorful_text/colorful_text.dart';
 import 'package:hive/hive.dart';
 import 'package:pro_pilot/ai/base_ai_service.dart';
 import 'package:pro_pilot/model.dart';
@@ -35,6 +36,7 @@ class GeminiService extends AIService {
   @override
   Future<AIResponse?> getCompletions(String prompt, {String instruction = Prompt.projectSetupInstruction}) async {
     try {
+      io.stdout.write(prompt);
       if (apiKey == null) await loadApiKey();
       final model = GenerativeModel(
         model: 'gemini-2.0-flash',
@@ -54,11 +56,10 @@ class GeminiService extends AIService {
       final response = await chat.sendMessage(content);
       history.addAll(chat.history.toList());
       final data = response.text;
-      print(clean(data));
       if (data != null) {
         final map = json.decode(clean(data)!) as Map<String, dynamic>;
-        print(map["files"]);
-        print(map['packages']);
+        io.stdout.write(ColorfulText.paint(map["files"], ColorfulText.green));
+        io.stdout.write(ColorfulText.paint(map['packages'], ColorfulText.white));
         final values = map["files"] as List<dynamic>;
         final packages = map['packages'] as List<dynamic>;
         List<Snippet> snippets = [];
