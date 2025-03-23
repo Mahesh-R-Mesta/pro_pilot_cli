@@ -6,6 +6,11 @@ class Snippet {
   Snippet(this.package, this.path, this.code, this.filename);
 
   factory Snippet.fromJson(dynamic data) {
-    return Snippet(data?['package'], (data['path'] as String).replaceAll('/', r'\'), data['code'], data['filename']);
+    return Snippet(
+      data?['package'],
+      (data['path'] as String).replaceAll('/', r'\'),
+      data['code'],
+      data['filename'],
+    );
   }
 }

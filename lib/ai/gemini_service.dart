@@ -13,10 +13,8 @@ class GeminiService extends AIService {
   final key = 'GEMINI_API_KEY';
   String? apiKey;
   String? clean(String? response) {
-    return response?.replaceAll("```json", "").replaceAll("```", "");
+    return response?.replaceAll("```json", "").replaceAll("```", "").replaceAll("\$", r"$");
   }
-
-  io.File? file;
 
   List<Content> history = [];
 
@@ -40,7 +38,7 @@ class GeminiService extends AIService {
       if (apiKey == null) await loadApiKey();
       final model = GenerativeModel(
         model: 'gemini-2.0-flash',
-        apiKey: apiKey!, //dotenv.env['GEMINI_API_KEY']!,
+        apiKey: apiKey!,
         generationConfig: GenerationConfig(
           temperature: 1.5,
           topK: 40,
@@ -76,14 +74,5 @@ class GeminiService extends AIService {
       io.stderr.write(error.toString());
     }
     return null;
-  }
-
-  @override
-  Future<void> close() async {
-    try {
-      await file?.writeAsString(json.encode(history.map((content) => content.toJson()).toList()));
-    } catch (error) {
-      io.stderr.write(error.toString());
-    }
   }
 }
