@@ -21,10 +21,12 @@ class BoilerPlateGenerator extends Builder {
         final lines = await io.File(entity.path).readAsLines();
         projectName = lines[0].split(":").last.trim();
         projectType = 'flutter';
+        break;
       } else if (p.basename(entity.path) == "package.json") {
         final content = await io.File(entity.path).readAsString();
         projectName = json.decode(content)['name'];
         projectType = 'react';
+        break;
       }
     }
 
