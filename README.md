@@ -30,15 +30,15 @@
 ## Usage 
    1. Generate a Flutter project
    ```sh
-   .\pro_pilot flutter
+   .\pro_pilot project flutter
    ```
   2. Generate a React project
    ```sh
-   .\pro_pilot react
+   .\pro_pilot project react
    ```
   3. Generating boilerplate code for existing project
    ```sh
-   .\pro_pilot boilerplate
+   .\pro_pilot append
    ```
 
 ## 🛠️ Requirements
