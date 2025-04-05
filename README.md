@@ -12,7 +12,7 @@
 1. Clone this repository:
 
    ```sh
-   git clone https://github.com/your-username/pro_pilot.git
+   git clone https://github.com/Mahesh-R-Mesta/pro_pilot.git
    cd pro_pilot
 
 2. Build the CLI tool (make sure you have dart installed)
