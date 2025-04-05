@@ -13,7 +13,7 @@ class GeminiService extends AIService {
   final key = 'GEMINI_API_KEY';
   String? apiKey;
   String? clean(String? response) {
-    return response?.replaceAll("```json", "").replaceAll("```", "").replaceAll("\$", r"$");
+    return response?.replaceAll("```json", "").replaceAll("```", "").replaceAll(r"\$", r"$");
   }
 
   List<Content> history = [];

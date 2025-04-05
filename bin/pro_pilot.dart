@@ -14,7 +14,7 @@ void main(List<String> arguments) async {
   final firstParser = ArgParser();
   final secondParser = ArgParser();
 
-  firstParser.addCommand("project", secondParser)
+  firstParser.addCommand("project")
     ..addCommand("flutter") // pro_cli project flutter -> creates flutter project
     ..addCommand("react"); // pro_cli project react -> creates react project
 
